@@ -3,7 +3,7 @@
 1. Clone dự án về máy local:
 
 ```bash
-git clone https://github.com/minh-dev1801/msc_v2.git
+git clone https://github.com/minh-dev1801/msc.git
 ```
 
 2. Lấy data Firewall lưu vào database:
