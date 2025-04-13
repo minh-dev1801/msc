@@ -1,0 +1,251 @@
+/* PivotChart.css */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
+.dashboard-container {
+  padding: 20px;
+  font-family: "Roboto", sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.chart-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.chart-container {
+  flex: 1 1 100%;
+  min-width: 300px;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.chart-container h2 {
+  color: #34495e;
+  margin-bottom: 20px;
+  font-size: 22px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Style cho trục Y bên trái */
+.recharts-yAxis .recharts-cartesian-axis-tick {
+  margin: 15px 0 !important;
+}
+
+.recharts-yAxis .recharts-cartesian-axis-tick-value {
+  max-width: 100px; /* Giữ chiều rộng tối đa */
+  white-space: nowrap; /* Không cho phép xuống dòng */
+  overflow: hidden; /* Ẩn phần vượt quá */
+  text-overflow: ellipsis; /* Thêm dấu ba chấm khi văn bản bị cắt */
+  line-height: 1.4em; /* Chiều cao dòng cho 1 dòng */
+  font-size: 12px !important; /* Giữ font size */
+  font-weight: 500 !important;
+  fill: #2c3e50 !important;
+  transform: translateX(-5px); /* Căn chỉnh nhãn */
+}
+
+/* Style cho text trong biểu đồ */
+.recharts-text {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  fill: #2c3e50 !important;
+  line-height: 1.5 !important;
+}
+
+/* Style cho tên đơn vị dài */
+.recharts-cartesian-axis-tick text {
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+}
+
+/* Tăng khoảng cách giữa các label */
+.recharts-cartesian-axis-tick {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+/* Style cho label bên trái */
+.recharts-yAxis .recharts-cartesian-axis-tick-value {
+  transform: translateX(-5px);
+}
+
+/* Tăng chiều cao cho container của chart */
+.recharts-wrapper {
+  margin: 20px 0;
+}
+
+/* Style cho giá trị trên bar */
+.recharts-label-list text {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  transform: translateX(8px);
+}
+
+/* Style cho tooltip */
+.custom-tooltip {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.custom-tooltip .label {
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 14px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.custom-tooltip .value {
+  color: #2c3e50;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Style cho legend */
+.recharts-legend-wrapper {
+  padding: 15px !important;
+}
+
+.recharts-legend-item {
+  margin-bottom: 10px !important;
+}
+
+.recharts-legend-item-text {
+  margin-left: 5px !important;
+  font-size: 13px !important;
+}
+
+/* Tăng khoảng cách giữa các bar */
+.recharts-bar-rectangles {
+  margin: 8px 0;
+}
+
+/* Điều chỉnh margin cho chart container */
+.chart-container:last-child {
+  margin-bottom: 0;
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+}
+
+.error-container {
+  color: #e74c3c;
+}
+
+.recharts-label {
+  font-family: "Roboto", sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.vietnamese-text {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+/* Thêm style cho các label trên trục */
+.recharts-cartesian-axis-tick-value {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  fill: #2c3e50 !important;
+}
+
+/* Style cho text trong biểu đồ */
+.recharts-text {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  fill: #2c3e50 !important;
+}
+
+/* Style cho tên đơn vị dài */
+.recharts-cartesian-axis-tick-value tspan {
+  display: block; /* Đảm bảo mỗi tspan là một khối riêng */
+  max-width: 100px; /* Phù hợp với max-width của tick-value */
+  white-space: nowrap; /* Không cho phép xuống dòng */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1; /* Chiều cao dòng cho 1 dòng */
+}
+
+/* Giảm kích thước font cho label */
+.recharts-cartesian-axis-tick text {
+  font-size: 14px !important;
+}
+
+/* Giảm kích thước giá trị trên bar */
+.recharts-label-list text {
+  font-size: 11px !important;
+}
+
+/* Tăng khoảng cách cho grid */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke-width: 0.5;
+  stroke-opacity: 0.5;
+}
+
+/* Tối ưu hiển thị cho màn hình nhỏ */
+@media screen and (max-width: 768px) {
+  .chart-container {
+    padding: 15px;
+  }
+
+  .recharts-yAxis .recharts-cartesian-axis-tick-value {
+    font-size: 11px !important;
+  }
+}
+
+/* Style cho XAxis của chart nhà cung cấp */
+.recharts-xAxis .recharts-cartesian-axis-tick-value {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  fill: #2c3e50 !important;
+}
+
+/* Đảm bảo text không bị đè lên nhau */
+.recharts-xAxis .recharts-cartesian-axis-tick {
+  margin-bottom: 5px !important;
+}
+
+/* Tăng margin bottom cho chart container */
+.chart-container {
+  margin-bottom: 40px;
+  padding: 30px;
+}
+
+/* Thêm padding bottom cho chart cuối */
+.chart-container:last-child {
+  padding-bottom: 50px;
+}
