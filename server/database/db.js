@@ -1,32 +1,36 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv/config";
 
-// Khởi tạo kết nối Sequelize
+if (
+  !process.env.DB_HOST ||
+  !process.env.DB_NAME ||
+  !process.env.DB_USER ||
+  !process.env.DB_PASSWORD
+) {
+  throw new Error("Thiếu biến môi trường cơ sở dữ liệu!");
+}
+
 const sequelize = new Sequelize({
-  dialect: "mssql", // Loại cơ sở dữ liệu
-  host: process.env.DB_HOST, // Địa chỉ server
-  database: process.env.DB_NAME, // Tên cơ sở dữ liệu
-  username: process.env.DB_USER, // Tên người dùng
-  password: process.env.DB_PASSWORD, // Mật khẩu
+  dialect: "mssql",
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   dialectOptions: {
     options: {
-      encrypt: false, // Tắt mã hóa nếu không dùng Azure
-      trustServerCertificate: true, // Bỏ qua chứng chỉ nếu dùng local
+      encrypt: false,
+      trustServerCertificate: true,
     },
   },
 });
 
-// Kiểm tra kết nối
 export const connectToSQLServer = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Kết nối thành công đến cơ sở dữ liệu!");
-    await sequelize.sync({ force: false }); // Đồng bộ model với DB
-    console.log("Đồng bộ hóa database thành công!");
+    await sequelize.sync({ force: false });
   } catch (error) {
     console.error("Lỗi kết nối hoặc đồng bộ:", error);
   }
 };
 
-// Xuất sequelize để sử dụng trong model
-export default sequelize;
+export { sequelize, Sequelize };

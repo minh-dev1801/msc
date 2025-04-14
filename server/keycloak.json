@@ -1,8 +1,8 @@
 {
-  "realm": "myrealm",
+  "realm": "my-realm",
   "auth-server-url": "http://localhost:8080/",
   "ssl-required": "external",
-  "resource": "myclient",
+  "resource": "express-api",
   "public-client": true,
   "confidential-port": 0
 }

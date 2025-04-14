@@ -6,13 +6,13 @@ import pivotChartRoutes from "./routes/pivotChartRoutes.js";
 import session from "express-session";
 import Keycloak from "keycloak-connect";
 import { errorHandler } from "./middleware/errorMiddleware.js";
+import ChartConfig from "./models/ChartConfig.js";
 
 dotenv.config();
 
 const app = express();
 const memoryStore = new session.MemoryStore();
 
-// Session configuration
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -22,56 +22,69 @@ app.use(
   })
 );
 
-// Keycloak configuration
 const keycloak = new Keycloak({ store: memoryStore });
 
-// Middleware
 app.use(keycloak.middleware());
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
     credentials: true,
   })
 );
 app.use(express.json());
 
-// Routes
-app.get("/", (req, res) => {
+app.get("/api/public", (req, res) => {
   res.send("Public route");
 });
 
-app.get("/protected", keycloak.protect(), (req, res) => {
-  res.send("Protected route");
+app.get("/api/protected", keycloak.protect(), (req, res) => {
+  const userInfo = req.kauth.grant.access_token.content;
+
+  res.send({
+    message: "This is a protected endpoint",
+    user: {
+      username: userInfo.preferred_username,
+      email: userInfo.email,
+      roles: userInfo.realm_access?.roles || [],
+    },
+  });
 });
 
-app.get("/login", (req, res) => {
-  if (req.kauth && req.kauth.grant) {
-    return res.redirect("/protected");
+app.post("/api/createChart", keycloak.protect(), async (req, res) => {
+  try {
+    const { chartType, prompt } = req.body;
+    const userInfo = req.kauth.grant.access_token.content;
+
+    const newChartConfig = await ChartConfig.create({
+      userId: userInfo.sub,
+      chartType,
+      prompt,
+    });
+
+    res.status(201).send({
+      success: true,
+      message: "Chart configuration saved successfully",
+      data: newChartConfig,
+    });
+  } catch (error) {
+    console.error("Error saving chart configuration:", error);
+    res.status(500).send({
+      success: false,
+      message: "Failed to save chart configuration",
+      error: error.message,
+    });
   }
-
-  const redirectUrl = `${
-    process.env.BASE_URL || "http://localhost:5000"
-  }/protected`;
-  res.redirect(
-    keycloak.loginUrl({
-      redirectUri: redirectUrl,
-    })
-  );
 });
 
-// API Routes - protected with Keycloak
-app.use("/api/bids/pivot", keycloak.protect(), pivotChartRoutes);
+app.use("/api/bids/pivot", pivotChartRoutes);
 
-// Error handling middleware
-app.use(errorHandler);
-
-// Database connection
 connectToSQLServer().catch((err) => {
   console.error("Database connection failed", err);
   process.exit(1);
 });
 
-// Server start
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
