@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "express-session": "^1.18.1",
+    "keycloak-connect": "^26.1.1"
+  }
+}
